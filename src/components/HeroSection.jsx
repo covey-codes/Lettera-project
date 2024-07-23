@@ -1,4 +1,4 @@
-import mido from "../assets/letterapic1.png";
+import filler from "../assets/letterapic1.png";
 
 const HeroSection = () => {
   return (
@@ -18,8 +18,8 @@ const HeroSection = () => {
       </div>
 
       <div className="flex mt-10 justify-center">
-        <img className="rounded-lg w-1/2 border border-orange-700 shadow-orange-400 mx-2 my-4" src={mido} alt="filler-image"/>
-        <img className="rounded-lg w-1/2 border border-orange-700 shadow-orange-400 mx-2 my-4" src={mido} alt="filler-image"/>
+        <img className="rounded-lg w-1/2 border border-orange-700 shadow-orange-400 mx-2 my-4" src={filler} alt="filler-image"/>
+        <img className="rounded-lg w-1/2 border border-orange-700 shadow-orange-400 mx-2 my-4" src={filler} alt="filler-image"/>
       </div>
     </div>
   );
