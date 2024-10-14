@@ -17,14 +17,14 @@ const Navbar = () => {
             <div className='flex items-center flex-shrink-0'>
                 <img className="w-20 mr-2"  src={logo} alt="logo" />
             </div>
-            <ul className="hidden lg:flex ml-14 space-x-12">
+            <ul className="hidden text-neutral-300 hover:text-white lg:flex ml-14 space-x-12">
                 {navItems.map((item, index) => (
                     <li key={index}>
                         <a href={item.href}>{item.label}</a>
                     </li>
                 ))}
             </ul>
-            <div className="hidden lg:flex justify-center space-x-12 items-center">
+            <div className="hidden text-neutral-300 hover:text-white lg:flex justify-center space-x-12 items-center">
                 <a href="#" className="py-2 px-3 border rounded-md">
                     Sign In
                 </a>
