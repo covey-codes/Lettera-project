@@ -1,22 +1,30 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
-import HeroSection from "./components/HeroSection";
-import FeatureSection from "./components/FeatureSection";
-import Workflow from "./components/Workflow";
 import Footer from "./components/Footer";
+import Home from "./pages/Home";
+import About from "./pages/AboutUs";
+import Contact from "./pages/ContactUs";
+import Help from "./pages/Help";
 
 
 const App = () => {
   return (
-    <>
+    
+  
+  <Router>
       <Navbar />
-      <div className="max-w-7xl mx-auto pt-20 px-6">
-        <HeroSection />
-        <FeatureSection />
-        <Workflow />
-        <Footer />
-      </div>
-    </>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/help" element={<Help />} />
+      </Routes>
+      <Footer />
+    </Router>
+      
+     
+      
+  
   );
 };
 
