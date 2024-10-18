@@ -7,5 +7,6 @@ export default {
   theme: {
     extend: {},
   },
+  darkMode: 'class',  // Ensures that dark mode is controlled by the "dark" class
   plugins: [],
 }
