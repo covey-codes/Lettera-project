@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
-const SignUp = () => {
+const SignUp = ({ theme }) => {
   const [formData, setFormData] = useState({
     username: "",
     email: "",
@@ -24,21 +24,30 @@ const SignUp = () => {
       setErrorMessage("Passwords do not match.");
     } else {
       setErrorMessage("");
-      // You can handle form submission here, e.g., make API request.
       console.log("Form submitted:", formData);
     }
   };
 
   return (
-    <section className="bg-gray-50 min-h-screen flex items-center justify-center">
-      <div className="bg-grey-100 flex rounded-2xl shadow-lg max-w-3xl p-5 items-center">
+    <section
+      className={`min-h-screen flex items-center justify-center ${
+        theme === "dark" ? "bg-gray-900" : ""
+      }`}
+    >
+      <div className="bg-grey-100 flex rounded-2xl shadow-lg max-w-3xl p-5 items-center dark:bg-gray-800">
         <div className="md:w-1/2 px-8 flex flex-col gap-1">
-          <h2 className="font-bold text-2xl">Sign Up</h2>
-          <p className="text-sm mt-4">Create your account to get started.</p>
+          <h2 className="font-bold text-2xl dark:text-white">Sign Up</h2>
+          <p className="text-sm mt-4 dark:text-gray-400">
+            Create your account to get started.
+          </p>
 
           <form onSubmit={handleSubmit} className="flex flex-col gap-4">
             <input
-              className="p-2 mt-8 rounded-xl border"
+              className={`p-2 mt-8 rounded-xl border ${
+                theme === "dark"
+                  ? "bg-gray-100 dark:border-gray-600 dark:text-black"
+                  : "bg-white border-gray-300 text-black"
+              }`}
               type="text"
               name="username"
               placeholder="Username"
@@ -47,7 +56,11 @@ const SignUp = () => {
               required
             />
             <input
-              className="p-2 rounded-xl border"
+              className={`p-2 rounded-xl border ${
+                theme === "dark"
+                  ? "bg-gray-100 dark:border-gray-600 dark:text-black"
+                  : "bg-white border-gray-300 text-black"
+              }`}
               type="email"
               name="email"
               placeholder="Email"
@@ -56,7 +69,11 @@ const SignUp = () => {
               required
             />
             <input
-              className="p-2 rounded-xl border"
+              className={`p-2 rounded-xl border ${
+                theme === "dark"
+                  ? "bg-gray-100 dark:border-gray-600 dark:text-black"
+                  : "bg-white border-gray-300 text-black"
+              }`}
               type="password"
               name="password"
               placeholder="Password"
@@ -65,7 +82,11 @@ const SignUp = () => {
               required
             />
             <input
-              className="p-2 rounded-xl border"
+              className={`p-2 rounded-xl border ${
+                theme === "dark"
+                  ? "bg-gray-100 dark:border-gray-600 dark:text-black"
+                  : "bg-white border-gray-300 text-black"
+              }`}
               type="password"
               name="confirmPassword"
               placeholder="Confirm Password"
@@ -90,9 +111,9 @@ const SignUp = () => {
             <hr className="outline-gray-400" />
           </div>
 
-          <button className="bg-white border py-2 w-full mt-5 rounded-xl flex justify-center items-center text-sm hover:scale-105 duration-300">
-            <svg
-              className="mr-3"
+          <button className="bg- border py-2 w-full mt-5 rounded-xl flex justify-center items-center text-sm hover:scale-105 duration-300">
+          <svg
+              class="mr-3"
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 48 48"
               width="25px"
@@ -105,25 +126,26 @@ const SignUp = () => {
                   />
                 </clipPath>
               </defs>
-              <g className="colors" fill="none">
-                <path d="M0 37V11l17 13z" clipPath="url(#a)" fill="#FBBC05" />
+              <g class="colors" fill="none">
+                <path d="M0 37V11l17 13z" clip-path="url(#a)" fill="#FBBC05" />
                 <path
                   d="M0 11l17 13 7-6.1L48 14V0H0z"
-                  clipPath="url(#a)"
+                  clip-path="url(#a)"
                   fill="#EA4335"
                 />
                 <path
                   d="M0 37l30-23 7.9 1L48 0v48H0z"
-                  clipPath="url(#a)"
+                  clip-path="url(#a)"
                   fill="#34A853"
                 />
                 <path
                   d="M48 48L17 24l-4-3 35-10z"
-                  clipPath="url(#a)"
+                  clip-path="url(#a)"
                   fill="#4285F4"
                 />
               </g>
             </svg>
+            {/* Google signup button */}
             Sign up with Google
           </button>
 

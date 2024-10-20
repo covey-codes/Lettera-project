@@ -1,68 +1,77 @@
-import { resourcesLinks, platformLinks, communityLinks } from "../constants"
+import { resourcesLinks, platformLinks, communityLinks } from "../constants";
 
 const Footer = () => {
-  return ( 
+  return (
     <footer className="mt-20 border-t py-10 border-neutral-700">
-    <div className="max-w-7xl mx-auto px-4">
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-8 text-center md:text-left">
-        <div className="md:m-8 p-5 bg-gradient-to-r from-orange-500 to-orange-800 shadow-lg rounded-lg">
-          <h3 className="text-md font-semibold mb-4">Resources</h3>
-          <ul className="space-y-2">
-            {resourcesLinks.map((link, index) => (
-              <li key={index}>
-                <a
-                  className="text-neutral-300 hover:text-white"
-                  href={link.href}
-                >
-                  {link.text}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </div>
+      <div className="max-w-7xl mx-auto px-4">
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8 text-center md:text-left">
+          {/* Resources Section - Visible on Medium and Large Screens */}
+          <div className="md:m-8 p-5 bg-gradient-to-r from-orange-500 to-orange-800 shadow-lg rounded-lg">
+            <h3 className="text-md font-semibold mb-4">Resources</h3>
+            <ul className="space-y-2">
+              {resourcesLinks.map((link, index) => (
+                <li key={index}>
+                  <a
+                    className="text-neutral-300 hover:text-white"
+                    href={link.href}
+                    aria-label={`Go to ${link.text}`}
+                  >
+                    {link.text}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
 
-        <div className="md:m-8 p-5 bg-gradient-to-r from-orange-500 to-orange-800 shadow-lg rounded-lg ">
-          <h3 className="text-md font-semibold mb-4 ">Platform</h3>
-          <ul className="space-y-2">
-            {platformLinks.map((link, index) => (
-              <li key={index}>
-                <a
-                  className="text-neutral-300 hover:text-white"
-                  href={link.href}
-                >
-                  {link.text}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </div>
+          {/* Platform Section - Hidden on Medium and Small Screens */}
+          <div className="hidden md:m-8 p-5 bg-gradient-to-r from-orange-500 to-orange-800 shadow-lg rounded-lg lg:block">
+            <h3 className="text-md font-semibold mb-4">Platform</h3>
+            <ul className="space-y-2">
+              {platformLinks.map((link, index) => (
+                <li key={index}>
+                  <a
+                    className="text-neutral-300 hover:text-white"
+                    href={link.href}
+                    aria-label={`Go to ${link.text}`}
+                  >
+                    {link.text}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
 
-        <div className="md:m-8 p-5 bg-gradient-to-r from-orange-500 to-orange-800 shadow-lg rounded-lg">
-          <h3 className="text-md font-semibold mb-4">Community</h3>
-          <ul className="space-y-2">
-            {communityLinks.map((link, index) => (
-              <li key={index}>
-                <a
-                  className="text-neutral-300 hover:text-white"
-                  href={link.href}
-                >
-                  {link.text}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </div>
+          {/* Community Section - Hidden on Medium and Small Screens */}
+          <div className="hidden md:m-8 p-5 bg-gradient-to-r from-orange-500 to-orange-800 shadow-lg rounded-lg lg:block">
+            <h3 className="text-md font-semibold mb-4">Community</h3>
+            <ul className="space-y-2">
+              {communityLinks.map((link, index) => (
+                <li key={index}>
+                  <a
+                    className="text-neutral-300 hover:text-white"
+                    href={link.href}
+                    aria-label={`Go to ${link.text}`}
+                  >
+                    {link.text}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
 
-        <div className="md:m-8 p-5 bg-gradient-to-r from-orange-500 to-orange-800 shadow-lg rounded-lg">
+          {/* Follow Us Section - Always Visible */}
+          <div className="md:m-8 p-5 bg-gradient-to-r from-orange-500 to-orange-800 shadow-lg rounded-lg">
             <h3 className="text-md font-semibold mb-4">Follow Us</h3>
             <div className="flex justify-center md:justify-start space-x-6">
-              {/* Facebook Icon */}
+              {/* Social Media Icons */}
               <a
                 href="https://www.facebook.com"
                 target="_blank"
                 rel="noopener noreferrer"
+                aria-label="Follow us on Facebook"
                 className="text-neutral-300 hover:text-white"
               >
+                {/* Facebook Icon */}
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
@@ -79,13 +88,14 @@ const Footer = () => {
                 </svg>
               </a>
 
-              {/* LinkedIn Icon */}
               <a
                 href="https://www.linkedin.com"
                 target="_blank"
                 rel="noopener noreferrer"
+                aria-label="Follow us on LinkedIn"
                 className="text-neutral-300 hover:text-white"
               >
+                {/* LinkedIn Icon */}
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
@@ -104,13 +114,14 @@ const Footer = () => {
                 </svg>
               </a>
 
-              {/* Instagram Icon */}
               <a
                 href="https://www.instagram.com"
                 target="_blank"
                 rel="noopener noreferrer"
+                aria-label="Follow us on Instagram"
                 className="text-neutral-300 hover:text-white"
               >
+                {/* Instagram Icon */}
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
@@ -129,13 +140,14 @@ const Footer = () => {
                 </svg>
               </a>
 
-              {/* Twitter Icon */}
               <a
                 href="https://www.twitter.com"
                 target="_blank"
                 rel="noopener noreferrer"
+                aria-label="Follow us on Twitter"
                 className="text-neutral-300 hover:text-white"
               >
+                {/* Twitter Icon */}
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
@@ -153,13 +165,10 @@ const Footer = () => {
               </a>
             </div>
           </div>
-        
+        </div>
       </div>
-    </div>
-  </footer>
-
+    </footer>
   );
-
 };
 
-export default Footer
+export default Footer;
