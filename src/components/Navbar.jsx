@@ -27,18 +27,19 @@ const Navbar = ({ toggleTheme, theme }) => {
 
             {/* Desktop Links */}
             <ul className="hidden lg:flex ml-14 space-x-12">
-              {navItems.map((item, index) => (
-                <li key={index}>
-                  <Link
-                    to={item.href}
-                    className={`px-3 py-2 rounded-md text-black dark:text-white hover:text-gray-700 dark:hover:text-gray-300
-                      ${isActive(item.href) ? "bg-gradient-to-r from-orange-500 to-orange-800 text-white" : ""}`}
-                  >
-                    {item.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
+  {navItems.map((item, index) => (
+    <li key={index}>
+      <Link
+        to={item.href}
+        className={`px-3 py-2 rounded-md text-black dark:text-white hover:text-gray-700 dark:hover:text-gray-300
+          ${isActive(item.href) ? "bg-gradient-to-r from-orange-500 to-orange-800 text-white" : ""}`}
+      >
+        {item.label}
+      </Link>
+    </li>
+  ))}
+</ul>
+
 
             {/* Theme Toggle Button */}
             <div className="hidden lg:flex justify-center space-x-12 items-center">

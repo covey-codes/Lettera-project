@@ -3,11 +3,13 @@ import { useState, useEffect } from "react";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Home from "./pages/Home";
-import About from "./pages/AboutUs";
+import AboutUs from "./pages/AboutUs";
 import Contact from "./pages/ContactUs";
 import Help from "./pages/Help";
 import SignUp from "./components/SignUp";
 import NewsLetter from "./components/NewsLetter";
+
+
 
 
 const App = () => {
@@ -34,7 +36,7 @@ localStorage.setItem("theme", newTheme);
       <Navbar toggleTheme={toggleTheme} theme={theme} />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
+        <Route path="/about" element={<AboutUs />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/help" element={<Help />} />
         <Route path="/signup" element={<SignUp />} />

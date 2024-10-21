@@ -111,8 +111,9 @@ const SignUp = ({ theme }) => {
             <hr className="outline-gray-400" />
           </div>
 
-          <button className="bg- border py-2 w-full mt-5 rounded-xl flex justify-center items-center text-sm hover:scale-105 duration-300">
-          <svg
+          <button className="bg-white border py-2 w-full mt-5 rounded-xl flex justify-center items-center text-sm hover:scale-105 duration-300">
+            {/* Google signup button */}
+            <svg
               class="mr-3"
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 48 48"
@@ -145,7 +146,6 @@ const SignUp = ({ theme }) => {
                 />
               </g>
             </svg>
-            {/* Google signup button */}
             Sign up with Google
           </button>
 
