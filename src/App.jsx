@@ -4,7 +4,7 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Home from "./pages/Home";
 import AboutUs from "./pages/AboutUs";
-import Contact from "./pages/ContactUs";
+import ContactUs from "./pages/ContactUs";
 import Help from "./pages/Help";
 import SignUp from "./components/SignUp";
 import NewsLetter from "./components/NewsLetter";
@@ -37,7 +37,7 @@ localStorage.setItem("theme", newTheme);
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<AboutUs />} />
-        <Route path="/contact" element={<Contact />} />
+        <Route path="/contactUs" element={<ContactUs />} />
         <Route path="/help" element={<Help />} />
         <Route path="/signup" element={<SignUp />} />
       </Routes>
