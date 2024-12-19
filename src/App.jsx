@@ -8,12 +8,17 @@ import ContactUs from "./pages/ContactUs";
 import Help from "./pages/Help";
 import SignUp from "./components/SignUp";
 import NewsLetter from "./components/NewsLetter";
+import TemplateInput from "./pages/TemplateInput";
 
 
 
 
 const App = () => {
-  const [theme, setTheme] = useState(localStorage.getItem("theme") || "dark");
+  const savedTheme = localStorage.getItem("theme");
+const [theme, setTheme] = useState(savedTheme || "dark");
+
+
+  
 
   const toggleTheme = () => {
     const newTheme = theme === "dark" ? "light" : "dark";
@@ -37,7 +42,7 @@ localStorage.setItem("theme", newTheme);
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<AboutUs />} />
-        <Route path="/contactUs" element={<ContactUs />} />
+        <Route path="/contact-us" element={<ContactUs />} />
         <Route path="/help" element={<Help />} />
         <Route path="/signup" element={<SignUp />} />
       </Routes>

@@ -18,20 +18,34 @@ const SignUp = ({ theme }) => {
     }));
   };
 
+  const validatePassword = (password) => {
+    const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    return regex.test(password);
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (formData.password !== formData.confirmPassword) {
       setErrorMessage("Passwords do not match.");
+    } else if (!validatePassword(formData.password)) {
+      setErrorMessage(
+        "Password must be at least 8 characters, include uppercase, lowercase, a number, and a special character."
+      );
     } else {
       setErrorMessage("");
       console.log("Form submitted:", formData);
+      // Proceed with sign-up logic
     }
   };
+
+  const inputStyle = theme === "dark"
+    ? "bg-gray-100 dark:border-gray-600 dark:text-black"
+    : "bg-white border-gray-300 text-black";
 
   return (
     <section
       className={`min-h-screen flex items-center justify-center ${
-        theme === "dark" ? "bg-gray-900" : ""
+        theme === "dark" ? "bg-gray-900" : "bg-gray-100"
       }`}
     >
       <div className="bg-grey-100 flex rounded-2xl shadow-lg max-w-3xl p-5 items-center dark:bg-gray-800">
@@ -42,58 +56,30 @@ const SignUp = ({ theme }) => {
           </p>
 
           <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-            <input
-              className={`p-2 mt-8 rounded-xl border ${
-                theme === "dark"
-                  ? "bg-gray-100 dark:border-gray-600 dark:text-black"
-                  : "bg-white border-gray-300 text-black"
-              }`}
-              type="text"
-              name="username"
-              placeholder="Username"
-              value={formData.username}
-              onChange={handleChange}
-              required
-            />
-            <input
-              className={`p-2 rounded-xl border ${
-                theme === "dark"
-                  ? "bg-gray-100 dark:border-gray-600 dark:text-black"
-                  : "bg-white border-gray-300 text-black"
-              }`}
-              type="email"
-              name="email"
-              placeholder="Email"
-              value={formData.email}
-              onChange={handleChange}
-              required
-            />
-            <input
-              className={`p-2 rounded-xl border ${
-                theme === "dark"
-                  ? "bg-gray-100 dark:border-gray-600 dark:text-black"
-                  : "bg-white border-gray-300 text-black"
-              }`}
-              type="password"
-              name="password"
-              placeholder="Password"
-              value={formData.password}
-              onChange={handleChange}
-              required
-            />
-            <input
-              className={`p-2 rounded-xl border ${
-                theme === "dark"
-                  ? "bg-gray-100 dark:border-gray-600 dark:text-black"
-                  : "bg-white border-gray-300 text-black"
-              }`}
-              type="password"
-              name="confirmPassword"
-              placeholder="Confirm Password"
-              value={formData.confirmPassword}
-              onChange={handleChange}
-              required
-            />
+            {["username", "email"].map((field) => (
+              <input
+                key={field}
+                className={`p-2 mt-4 rounded-xl border ${inputStyle}`}
+                type={field === "email" ? "email" : "text"}
+                name={field}
+                placeholder={field.charAt(0).toUpperCase() + field.slice(1)}
+                value={formData[field]}
+                onChange={handleChange}
+                required
+              />
+            ))}
+            {["password", "confirmPassword"].map((field, index) => (
+              <input
+                key={field}
+                className={`p-2 rounded-xl border ${inputStyle}`}
+                type="password"
+                name={field}
+                placeholder={index === 0 ? "Password" : "Confirm Password"}
+                value={formData[field]}
+                onChange={handleChange}
+                required
+              />
+            ))}
             {errorMessage && (
               <span className="text-red-600 text-sm">{errorMessage}</span>
             )}
@@ -111,9 +97,8 @@ const SignUp = ({ theme }) => {
             <hr className="outline-gray-400" />
           </div>
 
-          <button className="bg-white border py-2 w-full mt-5 rounded-xl flex justify-center items-center text-sm hover:scale-105 duration-300">
-            {/* Google signup button */}
-            <svg
+          <button className="bg-white text-black border py-2 w-full mt-5 rounded-xl flex justify-center items-center text-sm hover:scale-105 duration-300">
+          <svg
               class="mr-3"
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 48 48"
@@ -162,7 +147,7 @@ const SignUp = ({ theme }) => {
         <div className="w-1/2 md:block hidden">
           <img
             src="https://via.placeholder.com/300"
-            alt="random illustration"
+            alt="Sign-up Illustration"
             className="rounded-2xl"
           />
         </div>

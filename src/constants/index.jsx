@@ -8,7 +8,7 @@ import { GlobeLock } from "lucide-react";
 export const navItems = [
   { label: "Home", href: "/" },
   { label: "About Us", href: "/about" },
-  { label: "Contact Us", href: "/contactUs" },
+  { label: "Contact Us", href: "/contact-us" },
   { label: "Help", href: "/help" },
 ];
 
