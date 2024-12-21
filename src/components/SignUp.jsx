@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { GoogleLogin } from "@react-oauth/google";
+
 
 const SignUp = ({ theme }) => {
   const [formData, setFormData] = useState({

@@ -9,6 +9,7 @@ import Help from "./pages/Help";
 import SignUp from "./components/SignUp";
 import NewsLetter from "./components/NewsLetter";
 import TemplateInput from "./pages/TemplateInput";
+import { GoogleOAuthProvider } from "@react-oauth/google";
 
 
 
