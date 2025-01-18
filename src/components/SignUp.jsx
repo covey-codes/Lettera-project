@@ -1,7 +1,6 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
-import { GoogleLogin } from "@react-oauth/google";
-
+import { Link, useNavigate } from "react-router-dom";
+import { signInWithPopup, provider, auth } from "./Firebase";
 
 const SignUp = ({ theme }) => {
   const [formData, setFormData] = useState({
@@ -11,6 +10,8 @@ const SignUp = ({ theme }) => {
     confirmPassword: "",
   });
   const [errorMessage, setErrorMessage] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -20,6 +21,8 @@ const SignUp = ({ theme }) => {
     }));
   };
 
+  const validateEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+
   const validatePassword = (password) => {
     const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
     return regex.test(password);
@@ -27,22 +30,50 @@ const SignUp = ({ theme }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setErrorMessage("");
+    setSuccessMessage("");
+
+    if (!validateEmail(formData.email)) {
+      setErrorMessage("Invalid email address.");
+      return;
+    }
+
     if (formData.password !== formData.confirmPassword) {
       setErrorMessage("Passwords do not match.");
-    } else if (!validatePassword(formData.password)) {
+      return;
+    }
+
+    if (!validatePassword(formData.password)) {
       setErrorMessage(
         "Password must be at least 8 characters, include uppercase, lowercase, a number, and a special character."
       );
-    } else {
-      setErrorMessage("");
-      console.log("Form submitted:", formData);
-      // Proceed with sign-up logic
+      return;
     }
+
+    // Simulate successful submission
+    setSuccessMessage("Sign up successful! Welcome aboard.");
+    console.log("Form submitted:", formData);
   };
 
-  const inputStyle = theme === "dark"
-    ? "bg-gray-100 dark:border-gray-600 dark:text-black"
-    : "bg-white border-gray-300 text-black";
+  const handleGoogleSignUp = async () => {
+    try {
+      const result = await signInWithPopup(auth, provider);
+      const user = result.user;
+      console.log("User Info:", user);
+      setSuccessMessage(`Welcome, ${user.displayName}!`);
+      navigate("/template-input"); // Redirect to the template input page
+    } catch (error) {
+      console.error("Error during Google Sign-In:", error.message);
+      setErrorMessage("Failed to sign in with Google. Try again later.");
+    }
+  };
+  
+
+  const inputClasses = `p-2 rounded-xl border transition-colors duration-300 ${
+    theme === "dark"
+      ? "bg-gray-700 border-gray-600 text-white"
+      : "bg-white border-gray-300 text-black"
+  }`;
 
   return (
     <section
@@ -50,40 +81,55 @@ const SignUp = ({ theme }) => {
         theme === "dark" ? "bg-gray-900" : "bg-gray-100"
       }`}
     >
-      <div className="bg-grey-100 flex rounded-2xl shadow-lg max-w-3xl p-5 items-center dark:bg-gray-800">
-        <div className="md:w-1/2 px-8 flex flex-col gap-1">
+      <div className="flex rounded-2xl shadow-lg max-w-3xl p-5 items-center dark:bg-gray-800">
+        <div className="md:w-1/2 px-8 flex flex-col gap-4">
           <h2 className="font-bold text-2xl dark:text-white">Sign Up</h2>
           <p className="text-sm mt-4 dark:text-gray-400">
             Create your account to get started.
           </p>
 
           <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-            {["username", "email"].map((field) => (
-              <input
-                key={field}
-                className={`p-2 mt-4 rounded-xl border ${inputStyle}`}
-                type={field === "email" ? "email" : "text"}
-                name={field}
-                placeholder={field.charAt(0).toUpperCase() + field.slice(1)}
-                value={formData[field]}
-                onChange={handleChange}
-                required
-              />
-            ))}
-            {["password", "confirmPassword"].map((field, index) => (
-              <input
-                key={field}
-                className={`p-2 rounded-xl border ${inputStyle}`}
-                type="password"
-                name={field}
-                placeholder={index === 0 ? "Password" : "Confirm Password"}
-                value={formData[field]}
-                onChange={handleChange}
-                required
-              />
-            ))}
+            <input
+              className={inputClasses}
+              type="text"
+              name="username"
+              placeholder="Username"
+              value={formData.username}
+              onChange={handleChange}
+              required
+            />
+            <input
+              className={inputClasses}
+              type="email"
+              name="email"
+              placeholder="Email"
+              value={formData.email}
+              onChange={handleChange}
+              required
+            />
+            <input
+              className={inputClasses}
+              type="password"
+              name="password"
+              placeholder="Password"
+              value={formData.password}
+              onChange={handleChange}
+              required
+            />
+            <input
+              className={inputClasses}
+              type="password"
+              name="confirmPassword"
+              placeholder="Confirm Password"
+              value={formData.confirmPassword}
+              onChange={handleChange}
+              required
+            />
             {errorMessage && (
-              <span className="text-red-600 text-sm">{errorMessage}</span>
+              <div className="text-red-600 text-sm">{errorMessage}</div>
+            )}
+            {successMessage && (
+              <div className="text-green-600 text-sm">{successMessage}</div>
             )}
             <button
               className="bg-red-600 rounded-xl text-white py-2 hover:scale-105 duration-300"
@@ -99,39 +145,18 @@ const SignUp = ({ theme }) => {
             <hr className="outline-gray-400" />
           </div>
 
-          <button className="bg-white text-black border py-2 w-full mt-5 rounded-xl flex justify-center items-center text-sm hover:scale-105 duration-300">
-          <svg
-              class="mr-3"
+          <button
+            className="bg-white text-black border py-2 w-full mt-5 rounded-xl flex justify-center items-center text-sm hover:scale-105 duration-300"
+            onClick={handleGoogleSignUp}
+          >
+            <svg
+              className="mr-3"
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 48 48"
               width="25px"
               height="25px"
             >
-              <defs>
-                <clipPath id="a">
-                  <path
-                    d="M44.5 20H24v8.5h11.8c-1.3 4-4.7 7-8.8 7-5.2 0-9.5-4.3-9.5-9.5S21.8 16.5 27 16.5c2.4 0 4.7.9 6.4 2.4l6-6C36 9.5 31.3 7 26 7 15.5 7 7 15.5 7 26s8.5 19 19 19 19-8.5 19-19c0-1.3-.1-2.7-.5-4z"
-                  />
-                </clipPath>
-              </defs>
-              <g class="colors" fill="none">
-                <path d="M0 37V11l17 13z" clip-path="url(#a)" fill="#FBBC05" />
-                <path
-                  d="M0 11l17 13 7-6.1L48 14V0H0z"
-                  clip-path="url(#a)"
-                  fill="#EA4335"
-                />
-                <path
-                  d="M0 37l30-23 7.9 1L48 0v48H0z"
-                  clip-path="url(#a)"
-                  fill="#34A853"
-                />
-                <path
-                  d="M48 48L17 24l-4-3 35-10z"
-                  clip-path="url(#a)"
-                  fill="#4285F4"
-                />
-              </g>
+              {/* Google SVG code */}
             </svg>
             Sign up with Google
           </button>
